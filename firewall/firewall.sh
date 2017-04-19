@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Autor: Adriano Freitas <https://adrianofreitas.me>
 #
 
