@@ -9,24 +9,19 @@ function entrada(){
   iptables -A INPUT -i lo -j ACCEPT
   iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-  # Ignorar Ping (Opcional)
-  iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
-  iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
-
   # Grava um registro no LOG quando recebe um pacote invalido
   iptables -A INPUT -m state --state INVALID -j LOG --log-prefix " FIREWALL: PACOTE INVALIDO "
 
+  # Ignorar Ping (Opcional)
+  iptables -A INPUT -p icmp --icmp-type echo-request -j LOG --log-prefix " FIREWALL: PING "
+  iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
+  iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
+
   # Grava um registro no LOG quando recebe um pacote cujo destino e a porta 22
   # E libera a porta 22 (SSH)
-  iptables -A INPUT -p tcp --dport 22 -j LOG --log-prefix " FIREWALL: PORTA 22 "
-  iptables -I INPUT -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 360 --hitcount 3 -j DROP
-  iptables -A INPUT -p tcp --dport 22 -j ACCEPT
-
-
-  # Grava um registro no LOG
-  # E libera a porta 80 (HTTP)
-  iptables -A INPUT -p tcp -m multiport --dport 80,8080 -j LOG --log-prefix " FIREWALL: CONEXAO HTTP "
-  iptables -A INPUT -p tcp -m multiport --dport 80,8080 -j ACCEPT
+  #iptables -A INPUT -p tcp --dport 22 -j LOG --log-prefix " FIREWALL: PORTA 22 "
+  #iptables -I INPUT -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 360 --hitcount 3 -j DROP
+  #iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 
   # Grava um registro no LOG
   # E libera a porta 443 (HTTPS)
