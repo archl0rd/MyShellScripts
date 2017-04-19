@@ -56,7 +56,7 @@ function politica(){
   # serao negadas, exceto se alguma regra disser o contrario
   iptables -P INPUT DROP
   iptables -P FORWARD DROP
-  iptables -P OUTPUT DROP
+  iptables -P OUTPUT ACCEPT
 }
 
 function stop(){
