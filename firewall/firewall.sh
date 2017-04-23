@@ -2,9 +2,9 @@
 # Autor: Adriano Freitas <https://adrianofreitas.me>
 #
 
-function entrada(){
+function input(){
 
-  # REGRAS DE ENTRADA #
+  # REGRAS DE input #
   # Liberar interface localhost
   iptables -A INPUT -i lo -j ACCEPT
   iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
@@ -17,11 +17,6 @@ function entrada(){
   iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
   iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
 
-  # Grava um registro no LOG quando recebe um pacote cujo destino e a porta 22
-  # E libera a porta 22 (SSH)
-  #iptables -A INPUT -p tcp --dport 22 -j LOG --log-prefix " FIREWALL: PORTA 22 "
-  #iptables -I INPUT -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 360 --hitcount 3 -j DROP
-  #iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 
   # Grava um registro no LOG
   # E libera a porta 443 (HTTPS)
@@ -34,15 +29,15 @@ function entrada(){
   iptables -A INPUT -j DROP
 }
 
-function saida(){
-  # REGRAS DE ENTRADA #
-  # Liberar interface localhost e permite conexoes de SAIDA
+function output(){
+  # REGRAS DE input #
+  # Liberar interface localhost e permite conexoes de output
   iptables -A OUTPUT -o lo -j ACCEPT
   iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
   iptables -A OUTPUT -m state --state NEW -j ACCEPT
 }
 
-function limpar(){
+function clean(){
 	### Exclui todas as regras ###
 	### Exclui cadeias customizadas ###
 	iptables -F
@@ -50,12 +45,12 @@ function limpar(){
 	iptables -Z
 }
 
-function politica(){
+function policy(){
   # DEFAULT POLICY
-  # Por padrão todas as conexoes de ENTRADA, SAIDA E REDIRECIONAMENTO
+  # Por padrão todas as conexoes de input, output E REDIRECIONAMENTO
   # serao negadas, exceto se alguma regra disser o contrario
   iptables -P INPUT DROP
-  iptables -P FORWARD DROP
+  iptables -P FORWARD ACCEPT
   iptables -P OUTPUT ACCEPT
 }
 
@@ -77,25 +72,26 @@ function help(){
 case $1 in
   "")
   #Chama algumas funcoes
-  limpar
-  politica
-  entrada
-  saida
+  clean
+  policy
+  input
+  output
   echo -e "\nFIREWALL ATIVADO! \n"
   ;;
 
   --start)
   #Chama algumas funcoes
-  limpar
-  politica
-  entrada
-  saida
+  clean
+  policy
+  input
+  output
   echo -e "\nFIREWALL ATIVADO! \n"
   ;;
 
   --stop)
-  limpar
+  clean
   stop
+  echo -e "\nFIREWALL DESATIVADO! \n"
   ;;
 
 	--help)
