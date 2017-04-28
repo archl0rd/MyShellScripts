@@ -42,8 +42,13 @@ function output(){
   # REGRAS DE input #
   # Liberar interface localhost e permite conexoes de output
   iptables -A OUTPUT -o lo -j ACCEPT
-  iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-  iptables -A OUTPUT -m state --state NEW -j ACCEPT
+  iptables -A OUTPUT -j ACCEPT
+  #iptables -A OUTPUT -m state --state NEW -j ACCEPT
+  #iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+  #Bloquear portas
+  #iptables -A OUTPUT -p tcp --dport xxx -j DROP
+
 }
 
 function clean(){
