@@ -1,6 +1,6 @@
 #!/bin/bash
-# Autor: Adriano Freitas - adrianofreitas.me
-# Modificado: 27/11/2016
+# Autor: Adriano Freitas - https://adrianofreitas.me
+# Modificado: May/2017
 
 DIR=NULL
 function erase(){
