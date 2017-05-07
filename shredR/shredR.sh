@@ -38,7 +38,7 @@ function main() {
         N=$1
       fi
     else
-      echo "Diretório inexistente ou inválido!"
+      echo "shredR: No such file or directory"      
       exit
     fi
   fi
