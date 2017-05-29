@@ -16,17 +16,35 @@ function input(){
   iptables -A INPUT -p icmp --icmp-type echo-request -j LOG --log-prefix " FIREWALL: PING "
   iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
   iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
+
   # Grava um registro no LOG
   # E libera a porta 22 (SSH)
-  #iptables -A INPUT -p tcp --dport 22 -j LOG --log-prefix " FIREWALL: PORTA 22 "
-  #iptables -I INPUT -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 360 --hitcount 3 -j DROP
-  #iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+  iptables -A INPUT -p tcp --dport 22 -j LOG --log-prefix " FIREWALL: PORTA 22 "
+  iptables -I INPUT -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 360 --hitcount 3 -j DROP
+  iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 
   # Grava um registro no LOG
   # E libera a porta 80 (HTTPS)
   iptables -A INPUT -p tcp --dport 80 -j LOG --log-prefix " FIREWALL: PORTA 80 "
   iptables -I INPUT -p tcp --dport 80 -m state --state NEW -m recent --update --seconds 360 --hitcount 3 -j DROP
   iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+
+  # Grava um registro no LOG
+  # E libera a porta 80 (HTTPS)
+  iptables -A INPUT -p tcp --dport 8080 -j LOG --log-prefix " FIREWALL: PORTA 8080 "
+  iptables -I INPUT -p tcp --dport 8080 -m state --state NEW -m recent --update --seconds 360 --hitcount 3 -j DROP
+  iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+
+  # Grava um registro no LOG
+  # E libera a porta 80 (HTTPS)
+  iptables -A INPUT -p tcp --dport 8888 -j LOG --log-prefix " FIREWALL: PORTA 8888 "
+  iptables -I INPUT -p tcp --dport 8888 -m state --state NEW -m recent --update --seconds 360 --hitcount 3 -j DROP
+  iptables -A INPUT -p tcp --dport 8888 -j ACCEPT
+
+  # Grava um registro no LOG
+  # E libera a porta 80 (HTTPS)
+  iptables -A INPUT -p tcp --dport 3128 -j LOG --log-prefix " FIREWALL: PORTA 3128 "
+  iptables -A INPUT -p tcp --dport 3128 -j ACCEPT
 
   # Grava um registro no LOG
   # E libera a porta 443 (HTTPS)
