@@ -1,0 +1,11 @@
+# Programas para configurar VPS
+fail2ban
+squid3
+ - apache2-utils
+
+sendmail-bin sendmail
+iptables-persistent
+
+
+sudo
+ufw
