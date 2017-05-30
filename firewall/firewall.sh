@@ -1,6 +1,6 @@
 #!/bin/bash
-# Autor: Adriano Freitas <https://adrianofreitas.me>
-#
+# Autor: Adriano Freitas - https://adrianofreitas.me
+# Script de FIREWALL Básico
 
 function input(){
 
@@ -47,8 +47,6 @@ function input(){
   # E libera a porta 3128
   iptables -A INPUT -p tcp --dport 3128 -j LOG --log-prefix " FIREWALL: PORTA 3128 "
   iptables -A INPUT -p tcp --dport 3128 -j ACCEPT
-
-
 
   #BLOQUEAR O RESTANTE DAS PORTAS
   iptables -A INPUT -j DROP
