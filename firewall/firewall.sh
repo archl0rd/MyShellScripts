@@ -34,6 +34,11 @@ function input(){
   iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 
   # Grava um registro no LOG
+  # E libera a porta 1194
+  iptables -A INPUT -p tcp --dport 1194 -j LOG --log-prefix " FIREWALL: sPORTA 1194 "
+  iptables -A INPUT -p tcp --dport 1194 -j ACCEPT
+
+  # Grava um registro no LOG
   # E libera a porta 8080
   iptables -A INPUT -p tcp --dport 8080 -j LOG --log-prefix " FIREWALL: PORTA 8080 "
   iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
