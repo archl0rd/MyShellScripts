@@ -45,8 +45,8 @@ function input(){
 
   # Grava um registro no LOG
   # E libera a porta 8888
-  iptables -A INPUT -p tcp --dport 8888 -j LOG --log-prefix " FIREWALL: PORTA 8888 "
-  iptables -A INPUT -p tcp --dport 8888 -j ACCEPT
+  #iptables -A INPUT -p tcp --dport 8888 -j LOG --log-prefix " FIREWALL: PORTA 8888 "
+  #iptables -A INPUT -p tcp --dport 8888 -j ACCEPT
 
   # Grava um registro no LOG
   # E libera a porta 3128
